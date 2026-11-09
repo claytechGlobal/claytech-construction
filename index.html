@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claytech Construction — Your Blueprint to Success</title>
+<meta name="description" content="Claytech Construction helps homeowners, developers and investors turn building ideas into reality: 2D working drawings, 3D designs, 4D walkthroughs and building permit assistance.">
+<link rel="icon" type="image/png" sizes="64x64" href="brand/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/favicon-32.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<meta name="theme-color" content="#0b1c2e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1c2e;
+    --navy-2:#102840;
+    --navy-3:#163552;
+    --line:rgba(120,180,230,.14);
+    --line-strong:rgba(120,180,230,.32);
+    --ink:#e9f1f8;
+    --muted:#9db3c8;
+    --accent:#fbd401;
+    --accent-2:#ffe14d;
+    --paper:#f4f1ea;
+    --paper-ink:#14212e;
+    --paper-muted:#55626f;
+    --radius:14px;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --sans:'Archivo',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--navy);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block;max-width:100%}
+  .wrap{width:min(1200px,92vw);margin-inline:auto}
+  .mono{font-family:var(--mono);letter-spacing:.04em}
+  .eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.6rem}
+  .eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+  h1,h2,h3{line-height:1.08;letter-spacing:-.02em}
+  h2{font-size:clamp(2rem,4.2vw,3.2rem);font-weight:800;margin:.8rem 0 1rem}
+  .lead{color:var(--muted);font-size:1.12rem;max-width:620px}
+
+  /* blueprint grid background */
+  .grid-bg{
+    background-color:var(--navy);
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px),
+      linear-gradient(rgba(120,180,230,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(120,180,230,.05) 1px,transparent 1px);
+    background-size:96px 96px,96px 96px,24px 24px,24px 24px;
+    background-position:-1px -1px;
+  }
+
+  /* NAV */
+  header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+  header.scrolled{background:rgba(11,28,46,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .logo{display:flex;align-items:center;gap:.7rem;font-weight:900;letter-spacing:.06em;font-size:1.05rem}
+  .logo-mark{width:38px;height:38px}
+  .logo small{display:block;font-family:var(--mono);font-weight:500;font-size:.62rem;letter-spacing:.24em;color:var(--muted)}
+  .nav-links{display:flex;gap:2.2rem;align-items:center;font-size:.95rem;color:var(--muted)}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.9rem 1.5rem;border-radius:999px;font-weight:700;font-size:.95rem;transition:transform .2s,background .2s,box-shadow .2s;border:0;cursor:pointer;font-family:inherit}
+  .btn-primary{background:var(--accent);color:#1d1803;box-shadow:0 8px 30px -10px rgba(251,212,1,.45)}
+  .btn-primary:hover{background:var(--accent-2);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid var(--line-strong);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .nav .btn{padding:.65rem 1.2rem}
+  .burger{display:none;background:none;border:1px solid var(--line-strong);border-radius:10px;width:44px;height:44px;color:var(--ink);cursor:pointer}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:auto 0 0 0;height:200px;background:linear-gradient(transparent,var(--navy));pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center;position:relative;z-index:2}
+  .hero h1{font-size:clamp(2.8rem,6.4vw,5.6rem);font-weight:900;margin:1.2rem 0 1.4rem}
+  .hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+  .hero h1 .acc{color:var(--accent)}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.2rem}
+  .hero-meta{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px dashed var(--line-strong);flex-wrap:wrap}
+  .hero-meta div{font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+  .hero-meta strong{display:block;font-family:var(--sans);font-size:1.6rem;color:var(--ink);letter-spacing:-.01em;text-transform:none;font-weight:800}
+  .blueprint{position:relative;aspect-ratio:1/1;width:100%}
+  .blueprint svg{width:100%;height:100%}
+  .draw path,.draw line,.draw rect,.draw polyline,.draw polygon,.draw circle{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 3.2s ease forwards}
+  .draw .d2{animation-delay:.5s}.draw .d3{animation-delay:1s}.draw .d4{animation-delay:1.5s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .fade-late{opacity:0;animation:fade 1s ease 2.4s forwards}
+  @keyframes fade{to{opacity:1}}
+  .tag{position:absolute;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;background:rgba(11,28,46,.9);border:1px solid var(--line-strong);padding:.45rem .7rem;border-radius:6px;color:var(--muted);text-transform:uppercase}
+  .tag b{color:var(--accent);font-weight:600}
+
+
+  /* hero video */
+  .hero-media{position:relative;display:flex;justify-content:center;align-items:center;padding:30px 0}
+  .hero-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .video-frame{position:relative;width:min(380px,78vw);aspect-ratio:9/16;border-radius:22px;overflow:hidden;border:1px solid var(--line-strong);box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 8px rgba(16,40,64,.7),0 0 0 9px var(--line-strong);background:var(--navy-2)}
+  .video-frame video{width:100%;height:100%;object-fit:cover;display:block}
+  .video-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,28,46,.25),transparent 25%,transparent 70%,rgba(11,28,46,.85));pointer-events:none}
+  .corner{position:absolute;width:22px;height:22px;border:2px solid var(--accent);z-index:2}
+  .corner.tl{top:12px;left:12px;border-right:0;border-bottom:0}.corner.tr{top:12px;right:12px;border-left:0;border-bottom:0}
+  .corner.bl{bottom:12px;left:12px;border-right:0;border-top:0}.corner.br{bottom:12px;right:12px;border-left:0;border-top:0}
+  .video-bar{position:absolute;left:18px;right:18px;bottom:26px;z-index:3;display:flex;justify-content:space-between;align-items:center}
+  .rec{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+  .rec i{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{opacity:.25}}
+  .vctrl{display:flex;gap:.5rem}
+  .vctrl button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(233,241,248,.4);background:rgba(11,28,46,.6);backdrop-filter:blur(6px);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s,border-color .2s}
+  .vctrl button:hover{background:var(--accent);border-color:var(--accent);color:#1d1803}
+  .vctrl svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+
+  /* 4D tour video */
+  .tour{position:relative;background:#0b1320}
+  .tour video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .t-ui{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.45))}
+  .t-badge{position:absolute;left:10px;top:10px;display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;background:rgba(11,28,46,.75);color:var(--ink);padding:.3rem .55rem;border-radius:5px;backdrop-filter:blur(4px)}
+  .t-badge i{width:6px;height:6px;border-radius:50%;background:#ff4d3a;animation:pulse 1.2s infinite}
+  .t-cap{position:absolute;left:10px;right:10px;bottom:14px;height:1.2rem}
+  .t-cap em{position:absolute;left:0;bottom:0;font-style:normal;font-size:.74rem;font-weight:700;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.7);opacity:0;transform:translateY(4px);transition:opacity .4s,transform .4s}
+  .t-cap em.on{opacity:1;transform:none}
+  .t-prog{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.18)}
+  .t-prog b{display:block;height:100%;width:0;background:var(--accent)}
+
+  /* MARQUEE */
+  .strip{border-block:1px solid var(--line);background:var(--navy-2);overflow:hidden;padding:1.1rem 0}
+  .marquee{display:flex;gap:3rem;width:max-content;animation:scroll 32s linear infinite;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.85rem;color:var(--muted)}
+  .marquee span{display:flex;align-items:center;gap:3rem;white-space:nowrap}
+  .marquee span::after{content:"◆";color:var(--accent);font-size:.6rem}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  section{padding:120px 0}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end}
+  .about-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3.5rem}
+  .who{border:1px solid var(--line-strong);border-radius:var(--radius);padding:1.6rem;background:linear-gradient(180deg,rgba(22,53,82,.5),rgba(11,28,46,.2))}
+  .who .n{font-family:var(--mono);font-size:.75rem;color:var(--accent)}
+  .who h3{font-size:1.3rem;margin:.8rem 0 .4rem}
+  .who p{color:var(--muted);font-size:.95rem}
+
+  /* SERVICES */
+  .services{background:var(--paper);color:var(--paper-ink)}
+  .services .eyebrow{color:#9c7d00}
+  .services .lead{color:var(--paper-muted)}
+  .svc-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:3.5rem}
+  .svc-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.2rem}
+  .svc{grid-column:span 4;background:#fff;border:1px solid #e3ddd0;border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s}
+  .svc:hover{transform:translateY(-6px);box-shadow:0 24px 50px -24px rgba(20,33,46,.35);border-color:#d0c7b4}
+  .svc.feature{grid-column:span 4;background:var(--navy);color:var(--ink);border-color:var(--navy)}
+  .svc.feature p{color:var(--muted)}
+  .svc.wide{grid-column:span 6}
+  .svc-ico{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:#fff8cc;margin-bottom:1.4rem}
+  .svc.feature .svc-ico{background:rgba(251,212,1,.14)}
+  .svc-ico svg{width:30px;height:30px;stroke:#9c7d00;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .svc.feature .svc-ico svg{stroke:var(--accent)}
+  .svc .num{position:absolute;top:1.6rem;right:1.8rem;font-family:var(--mono);font-size:.78rem;color:#a89f8d}
+  .svc.feature .num{color:var(--muted)}
+  .svc h3{font-size:1.35rem;font-weight:800;margin-bottom:.6rem}
+  .svc p{color:var(--paper-muted);font-size:.98rem}
+  .dim{display:inline-block;font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;padding:.25rem .55rem;border-radius:4px;background:var(--accent);color:#1d1803;font-weight:600;margin-bottom:1rem}
+
+  /* DIMENSIONS 2D 3D 4D */
+  .dims{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line-strong);border-radius:var(--radius);overflow:hidden;margin-top:3.5rem}
+  .dimcol{padding:2.4rem;border-right:1px solid var(--line-strong);position:relative;display:flex;flex-direction:column}
+  .dimcol:last-child{border-right:0}
+  .dimcol .big{font-size:5rem;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1.5px var(--accent)}
+  .dimcol h3{font-size:1.25rem;margin:1rem 0 .5rem}
+  .dimcol p{color:var(--muted);font-size:.95rem;margin-bottom:1.8rem}
+  .dim-img{margin-top:auto;border-radius:14px;overflow:hidden;aspect-ratio:431/255;border:1px solid var(--line-strong);box-shadow:0 20px 40px -24px rgba(0,0,0,.7)}
+  .dim-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .dimcol:hover .dim-img img{transform:scale(1.05)}
+  .arrow{position:absolute;right:-14px;top:50%;width:28px;height:28px;background:var(--accent);border-radius:50%;display:grid;place-items:center;z-index:2;color:#1d1803;font-weight:900;transform:translateY(-50%)}
+
+  /* CHECKLIST */
+  .need{background:var(--navy-2);border-block:1px solid var(--line)}
+  .need-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:4rem;align-items:start}
+  .sticky{position:sticky;top:110px}
+  .note{margin-top:2rem;padding:1.5rem;border-radius:var(--radius);border:1px dashed var(--accent);background:rgba(251,212,1,.06)}
+  .note strong{color:var(--accent)}
+  .note p{color:var(--muted);margin-top:.4rem}
+  .checklist{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+  .item{display:grid;grid-template-columns:auto 1fr auto;gap:1.3rem;align-items:center;padding:1.4rem 1.6rem;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--navy);cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
+  .item:hover{border-color:var(--muted)}
+  .item .idx{font-family:var(--mono);font-size:.85rem;color:var(--accent);width:2.2rem}
+  .item h3{font-size:1.1rem;font-weight:700}
+  .item p{color:var(--muted);font-size:.93rem;margin-top:.15rem}
+  .box{width:28px;height:28px;border-radius:8px;border:1.5px solid var(--line-strong);display:grid;place-items:center;transition:.2s}
+  .box svg{width:16px;height:16px;stroke:#1d1803;stroke-width:3;fill:none;opacity:0}
+  .item.on{border-color:var(--accent);background:linear-gradient(90deg,rgba(251,212,1,.1),var(--navy) 60%)}
+  .item.on .box{background:var(--accent);border-color:var(--accent)}
+  .item.on .box svg{opacity:1}
+  .progress{margin-top:1.4rem;display:flex;align-items:center;gap:1rem;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+  .bar{flex:1;height:6px;background:var(--navy-3);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .4s}
+
+  /* PROCESS */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3.5rem;counter-reset:s}
+  .step{padding:2rem 1.6rem;border-top:2px solid var(--accent);background:linear-gradient(180deg,rgba(22,53,82,.45),transparent)}
+  .step::before{counter-increment:s;content:"PHASE 0" counter(s);font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;color:var(--accent)}
+  .step h3{font-size:1.25rem;margin:.9rem 0 .5rem}
+  .step p{color:var(--muted);font-size:.95rem}
+
+  /* CTA / FORM */
+  .cta{position:relative;overflow:hidden}
+  .cta-card{border:1px solid var(--line-strong);border-radius:24px;background:linear-gradient(140deg,var(--navy-3),var(--navy) 70%);padding:clamp(2rem,5vw,4rem);display:grid;grid-template-columns:1fr 1.1fr;gap:3.5rem}
+  .cta h2{font-size:clamp(2.2rem,4.6vw,3.6rem)}
+  .cta ul{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:.9rem;color:var(--muted)}
+  .cta ul li{display:flex;gap:.8rem;align-items:center}
+  .cta ul li::before{content:"";width:8px;height:8px;background:var(--accent);transform:rotate(45deg);flex-shrink:0}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-content:start}
+  .field{display:flex;flex-direction:column;gap:.4rem}
+  .field.full{grid-column:1/-1}
+  label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  input,select,textarea{font:inherit;color:var(--ink);background:rgba(11,28,46,.7);border:1px solid var(--line-strong);border-radius:10px;padding:.85rem 1rem;outline:none;transition:border-color .2s}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  textarea{min-height:110px;resize:vertical}
+  select option{background:var(--navy)}
+  .form-actions{grid-column:1/-1;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:.4rem}
+  .form-actions small{color:var(--muted);font-size:.82rem}
+  .brief{display:none;grid-column:1/-1;margin-top:.6rem;border:1px solid var(--accent);border-radius:12px;background:rgba(0,0,0,.25);padding:1.2rem}
+  .brief.show{display:block}
+  .brief pre{white-space:pre-wrap;font-family:var(--mono);font-size:.8rem;color:var(--ink);line-height:1.7;max-height:260px;overflow:auto}
+  .brief-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;gap:1rem;flex-wrap:wrap}
+  .brief-head strong{color:var(--accent);font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+  .err{color:#ff9b8a;font-size:.85rem}
+
+
+  /* WORK / PLANS */
+  .work{background:var(--paper);color:var(--paper-ink)}
+  .work .eyebrow{color:#9c7d00}
+  .work .lead{color:var(--paper-muted);max-width:760px}
+  .work-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:1rem}
+  .work-stats{display:flex;gap:2.4rem}
+  .work-stats div{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-muted)}
+  .work-stats strong{display:block;font-family:var(--sans);font-size:2.2rem;font-weight:900;color:var(--paper-ink);letter-spacing:-.02em}
+  .viewer{display:grid;grid-template-columns:1fr 300px;gap:1.2rem;background:#fff;border:1px solid #e3ddd0;border-radius:20px;padding:1.2rem;box-shadow:0 30px 70px -40px rgba(20,33,46,.4)}
+  .stage{position:relative;border:0;padding:0;background:#fff;border-radius:12px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/2;border:1px solid #ece7dc;font:inherit;color:inherit}
+  .stage img{width:100%;height:100%;object-fit:contain;transition:opacity .25s}
+  .stage-label{position:absolute;left:14px;top:14px;background:var(--navy);color:var(--ink);padding:.5rem .8rem;border-radius:8px;font-size:.85rem;display:flex;gap:.6rem;align-items:center}
+  .stage-label b{font-family:var(--mono);color:var(--accent);font-weight:600}
+  .stage-zoom{position:absolute;right:14px;bottom:14px;background:var(--accent);color:#1d1803;font-weight:700;font-size:.82rem;padding:.55rem .9rem;border-radius:999px;display:flex;gap:.4rem;align-items:center;opacity:.92;transition:transform .2s}
+  .stage:hover .stage-zoom{transform:translateY(-2px);opacity:1}
+  .stage-zoom svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+  .thumbs{display:flex;flex-direction:column;gap:.5rem;max-height:560px;overflow-y:auto;padding-right:.3rem}
+  .thumb{display:grid;grid-template-columns:84px 1fr;gap:.7rem;align-items:center;text-align:left;border:1px solid #ece7dc;background:#faf8f3;border-radius:10px;padding:.4rem;cursor:pointer;font:inherit;color:var(--paper-ink);transition:border-color .2s,background .2s}
+  .thumb img{width:84px;height:56px;object-fit:cover;border-radius:6px;background:#fff;border:1px solid #eee}
+  .thumb span{font-size:.82rem;line-height:1.3}
+  .thumb b{display:block;font-family:var(--mono);font-size:.7rem;color:#9c7d00;letter-spacing:.08em}
+  .thumb:hover{border-color:#cfc5b0}
+  .thumb.active{border-color:var(--accent);background:#fff8cc}
+  .lightbox{position:fixed;inset:0;z-index:100;background:#060f19;display:flex;flex-direction:column}
+  .lightbox[hidden]{display:none}
+  .lb-top{display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.2rem;border-bottom:1px solid var(--line);gap:1rem;flex-wrap:wrap}
+  .lb-title{font-size:.95rem}.lb-title b{font-family:var(--mono);color:var(--accent);margin-right:.4rem}
+  .lb-tools{display:flex;gap:.5rem;align-items:center;font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+  .lb-tools button,.lb-nav{background:var(--navy-3);color:var(--ink);border:1px solid var(--line-strong);border-radius:8px;min-width:38px;height:38px;cursor:pointer;font:inherit;font-size:1rem;padding:0 .7rem}
+  .lb-tools button:hover,.lb-nav:hover{background:var(--accent);color:#1d1803;border-color:var(--accent)}
+  #zLvl{min-width:48px;text-align:center}
+  .lb-canvas{flex:1;overflow:hidden;position:relative;cursor:grab;touch-action:none}
+  .lb-canvas.drag{cursor:grabbing}
+  .lb-canvas img{position:absolute;left:0;top:0;transform-origin:0 0;background:#fff;user-select:none;max-width:none}
+  .lb-nav{position:absolute;top:50%;transform:translateY(-50%);height:56px;font-size:1.6rem;border-radius:12px}
+  .lb-nav.prev{left:14px}.lb-nav.next{right:14px}
+  .lb-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:.72rem;color:var(--muted);background:rgba(11,28,46,.8);padding:.4rem .8rem;border-radius:99px;white-space:nowrap}
+  @media (max-width:980px){.viewer{grid-template-columns:1fr}.thumbs{flex-direction:row;overflow-x:auto;max-height:none}.thumb{grid-template-columns:1fr;min-width:150px}.thumb img{width:100%;height:auto;aspect-ratio:3/2}}
+  @media (max-width:760px){.lb-hint{display:none}.work-stats{gap:1.4rem}}
+
+
+  /* ESTATE PORTFOLIO */
+  .estate-head{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:2.5rem}
+  .estate-lead{position:relative;display:block;width:100%;border:0;padding:0;cursor:zoom-in;border-radius:22px;overflow:hidden;aspect-ratio:16/8;background:var(--navy-2);border:1px solid var(--line-strong);box-shadow:0 40px 80px -40px rgba(0,0,0,.8);font:inherit;color:inherit}
+  .estate-lead img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+  .estate-lead:hover img{transform:scale(1.03)}
+  .estate-lead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,28,46,.35),transparent 30%,transparent 55%,rgba(11,28,46,.9));pointer-events:none}
+  .estate-lead-tag{position:absolute;left:24px;top:22px;z-index:2;background:rgba(11,28,46,.8);backdrop-filter:blur(6px);border:1px solid var(--line-strong);padding:.55rem .9rem;border-radius:10px;font-weight:700;display:flex;gap:.7rem;align-items:center}
+  .estate-lead-tag b{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .estate-chips{position:absolute;left:24px;right:24px;bottom:22px;z-index:2;display:flex;flex-wrap:wrap;gap:.5rem}
+  .estate-chips i{font-style:normal;font-size:.8rem;font-weight:600;padding:.4rem .8rem;border-radius:99px;background:rgba(233,241,248,.12);border:1px solid rgba(233,241,248,.28);backdrop-filter:blur(6px)}
+  .estate-filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:2.5rem 0 1.5rem}
+  .estate-filters button{font:inherit;font-size:.88rem;font-weight:600;color:var(--muted);background:transparent;border:1px solid var(--line-strong);border-radius:99px;padding:.6rem 1.1rem;cursor:pointer;transition:.2s}
+  .estate-filters button:hover{color:var(--ink);border-color:var(--muted)}
+  .estate-filters button.on{background:var(--accent);border-color:var(--accent);color:#1d1803}
+  .estate-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:clamp(150px,17vw,240px);gap:1rem;grid-auto-flow:dense}
+  .ecard{position:relative;border:0;padding:0;border-radius:16px;overflow:hidden;cursor:zoom-in;background:var(--navy-2);border:1px solid var(--line);font:inherit;color:inherit;transition:opacity .3s,transform .3s}
+  .ecard.wide{grid-column:span 2;grid-row:span 2}
+  .ecard img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+  .ecard:hover img{transform:scale(1.06)}
+  .ecard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(11,28,46,.92));pointer-events:none}
+  .ecap{position:absolute;left:16px;right:16px;bottom:14px;z-index:2;text-align:left;font-weight:700;font-size:.98rem;line-height:1.3}
+  .ecap b{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.2rem}
+  .ecard.hide{display:none}
+  .e-stage{flex:1;display:flex;align-items:center;justify-content:center;padding:1.5rem 5rem;min-height:0}
+  .e-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px;box-shadow:0 30px 80px -30px rgba(0,0,0,.9)}
+  @media (max-width:980px){.estate-head{grid-template-columns:1fr;gap:1rem}.estate-grid{grid-template-columns:1fr 1fr}.estate-lead{aspect-ratio:16/10}}
+  @media (max-width:760px){.estate-grid{grid-template-columns:1fr;grid-auto-rows:auto}.ecard,.ecard.wide{grid-column:auto;grid-row:auto;aspect-ratio:16/10}.estate-chips{display:none}.e-stage{padding:1rem .5rem}}
+
+
+  /* 3D PROJECTS */
+  .p3{background:var(--paper);color:var(--paper-ink)}
+  .p3 .eyebrow{color:#9c7d00}
+  .p3 .lead{color:var(--paper-muted)}
+  .p3-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(170px,18vw,260px);gap:1rem}
+  .p3card{border-color:#e3ddd0;box-shadow:0 24px 50px -30px rgba(20,33,46,.45);color:var(--ink)}
+  .p3card.big{grid-column:span 2;grid-row:span 2}
+  .p3card.wide{grid-column:span 2;grid-row:span 1}
+  @media (max-width:980px){.p3-grid{grid-template-columns:1fr 1fr}.p3card.big{grid-column:span 2;grid-row:span 2}.p3card.wide{grid-column:span 2}}
+  @media (max-width:760px){.p3-grid{grid-template-columns:1fr;grid-auto-rows:auto}.p3card,.p3card.big,.p3card.wide{grid-column:auto;grid-row:auto;aspect-ratio:16/10}}
+
+  footer{border-top:1px solid var(--line);padding:3rem 0;color:var(--muted);font-size:.9rem}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
+  .foot .links{display:flex;gap:1.8rem}
+  .foot a:hover{color:var(--ink)}
+
+
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;padding-top:1.6rem;border-top:1px dashed var(--line-strong);font-size:.8rem}
+  .powered{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+  .powered b{color:var(--accent);font-weight:600}
+  .terms-link{color:var(--accent)}
+  .terms{position:fixed;inset:0;z-index:120;background:rgba(6,15,25,.82);backdrop-filter:blur(6px);display:flex;justify-content:center;align-items:flex-start;padding:5vh 4vw;overflow-y:auto}
+  .terms[hidden]{display:none}
+  .terms-panel{width:min(820px,100%);background:var(--paper);color:var(--paper-ink);border-radius:20px;overflow:hidden;box-shadow:0 40px 100px -30px rgba(0,0,0,.8)}
+  .terms-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:2rem 2.2rem 1.4rem;background:var(--navy);color:var(--ink);border-bottom:3px solid var(--accent)}
+  .terms-head h2{margin:.5rem 0 .3rem;font-size:clamp(1.8rem,4vw,2.4rem)}
+  .terms-date{font-size:.75rem;color:var(--muted)}
+  .terms-close{background:var(--navy-3);color:var(--ink);border:1px solid var(--line-strong);border-radius:10px;width:42px;height:42px;cursor:pointer;font-size:1rem;flex-shrink:0}
+  .terms-close:hover{background:var(--accent);color:#1d1803;border-color:var(--accent)}
+  .terms-body{padding:1.6rem 2.2rem 2.4rem}
+  .terms-body h3{font-size:1.08rem;font-weight:800;margin:1.6rem 0 .45rem;display:flex;gap:.7rem;align-items:baseline}
+  .terms-body h3:first-child{margin-top:.4rem}
+  .terms-body h3 span{font-family:var(--mono);font-size:.75rem;color:#9c7d00;font-weight:600}
+  .terms-body p{color:var(--paper-muted);font-size:.95rem;line-height:1.7}
+  .terms-end{margin-top:2rem;padding-top:1.4rem;border-top:1px dashed #d8d0bf}
+  .terms-end strong{color:var(--paper-ink);font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+  @media (max-width:760px){.terms-head,.terms-body{padding-left:1.3rem;padding-right:1.3rem}}
+
+
+  .contact-cards{display:flex;flex-direction:column;gap:.8rem;margin-top:2rem}
+  .ccard{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border:1px solid var(--line-strong);border-radius:14px;background:rgba(11,28,46,.55);transition:border-color .2s,transform .2s;word-break:break-word}
+  .ccard:hover{border-color:var(--accent);transform:translateX(4px)}
+  .ccard svg,.foot-contact svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;flex-shrink:0}
+  .ccard span{font-weight:700;font-size:1.02rem}
+  .ccard small{display:block;font-family:var(--mono);font-weight:500;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .foot-contact{display:flex;gap:1.6rem;flex-wrap:wrap}
+  .foot-contact a{display:flex;align-items:center;gap:.5rem}
+  .foot-contact svg{width:17px;height:17px}
+
+
+  .nav-right{display:flex;align-items:center;gap:.7rem}
+  .fb-btn{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line-strong);color:var(--ink);transition:background .2s,border-color .2s,color .2s}
+  .fb-btn:hover{background:var(--accent);border-color:var(--accent);color:#1d1803}
+  .fb-btn svg,.fb-row svg,.fb-pill svg{width:20px;height:20px;fill:currentColor}
+  .foot-contact .fb-foot svg{fill:var(--accent);stroke:none}
+  .fb-row{display:flex;align-items:center;gap:.6rem}
+  .fb-pill{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:600;padding:.5rem 1rem;border-radius:99px;border:1px solid var(--line-strong);color:var(--ink);transition:.2s}
+  .fb-pill svg{width:16px;height:16px}
+  .fb-pill:hover{background:var(--accent);border-color:var(--accent);color:#1d1803}
+  @media (max-width:760px){.nav-right{display:none}}
+
+
+  .logo-img{height:46px;width:auto}
+  .logo small{color:var(--accent)}
+  .foot-logo{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem}
+  .foot-logo small{font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+
+
+  .logo-badge{display:flex;align-items:center;background:#fff;border-radius:12px;padding:5px 12px;box-shadow:0 6px 20px -8px rgba(0,0,0,.5)}
+  .logo-badge img{height:50px;width:auto}
+  .logo-card{display:inline-flex;background:#fff;border-radius:16px;padding:14px 20px;box-shadow:0 14px 34px -14px rgba(0,0,0,.6)}
+  .foot-logo .logo-card img{height:96px;width:auto}
+  .cta-logo{margin-bottom:1.6rem;filter:none}
+  .cta-logo img{height:84px;width:auto}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* mobile menu */
+  .mobile-menu{display:none}
+  @media (max-width:980px){
+    .hero-grid,.about-grid,.need-grid,.cta-card{grid-template-columns:1fr}
+    .svc,.svc.wide,.svc.feature{grid-column:span 6}
+    .steps{grid-template-columns:1fr 1fr}
+    .dims{grid-template-columns:1fr}
+    .dimcol{border-right:0;border-bottom:1px solid var(--line-strong)}
+    .dimcol:last-child{border-bottom:0}
+    .arrow{right:50%;top:auto;bottom:-14px;transform:translateX(50%) rotate(90deg)}
+    .sticky{position:static}
+    .about-cards{grid-template-columns:1fr}
+  }
+  @media (max-width:760px){
+    .nav-links,.nav>.btn{display:none}
+    .burger{display:grid;place-items:center}
+    .mobile-menu.open{display:flex;flex-direction:column;gap:1.2rem;padding:1.5rem 4vw 2rem;background:var(--navy);border-bottom:1px solid var(--line);font-size:1.1rem}
+    .svc,.svc.wide,.svc.feature{grid-column:span 12}
+    .steps{grid-template-columns:1fr}
+    form{grid-template-columns:1fr}
+    section{padding:84px 0}
+    .tag{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .draw *{stroke-dashoffset:0!important}.fade-late{opacity:1}.reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#home" class="logo-badge" aria-label="Claytech Construction home"><img src="brand/logo-orig-160.png" alt="Claytech Construction" width="224" height="160"></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#projects-3d">3D Projects</a>
+      <a href="#get-started">Get Started</a>
+      <a href="#process">Process</a>
+    </nav>
+    <div class="nav-right"><a href="https://www.facebook.com/Claytechn" class="fb-btn" target="_blank" rel="noopener" aria-label="Claytech Construction on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg></a><a href="#contact" class="btn btn-primary">Book a Consultation</a></div>
+    <button class="burger" id="burger" aria-label="Open menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" stroke="currentColor" stroke-width="2"><path d="M2 5h16M2 10h16M2 15h16"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#portfolio">Portfolio</a><a href="#projects-3d">3D Projects</a><a href="#get-started">Get Started</a><a href="#process">Process</a>
+    <a href="https://www.facebook.com/Claytechn" target="_blank" rel="noopener" class="fb-row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg> Follow us on Facebook</a>
+    <a href="#contact" class="btn btn-primary" style="justify-content:center">Book a Consultation</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero grid-bg" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Architectural Design &amp; Permits</span>
+      <h1>Your <span class="outline">Blueprint</span><br>to <span class="acc">Success.</span></h1>
+      <p class="lead">At Claytech Construction, we help homeowners, property developers, and investors turn their building ideas into reality. From architectural designs to building permit assistance, we simplify the planning process.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Start Your Project
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a href="#services" class="btn btn-ghost">Explore Services</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>2D · 3D · 4D</strong>Design Deliverables</div>
+        <div><strong>Permit‑Ready</strong>Documentation</div>
+        <div><strong>Res + Com</strong>Project Types</div>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <svg class="hero-lines" viewBox="0 0 520 620" fill="none" aria-hidden="true">
+        <g class="draw" stroke="rgba(157,179,200,.35)" stroke-width="1">
+          <rect x="10" y="10" width="500" height="600" stroke-dasharray="4 6"/>
+          <line x1="0" y1="80" x2="520" y2="80" class="d2"/><line x1="0" y1="540" x2="520" y2="540" class="d2"/>
+          <line x1="70" y1="0" x2="70" y2="620" class="d3"/><line x1="450" y1="0" x2="450" y2="620" class="d3"/>
+        </g>
+      </svg>
+      <div class="video-frame">
+        <video id="heroVideo" src="hero.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Claytech Construction showreel"></video>
+        <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+        <div class="video-bar">
+          <span class="rec"><i></i> Claytech Showreel</span>
+          <div class="vctrl">
+            <button type="button" id="playBtn" aria-label="Pause video">
+              <svg id="icoPause" viewBox="0 0 16 16"><path d="M5 3v10M11 3v10"/></svg>
+              <svg id="icoPlay" viewBox="0 0 16 16" style="display:none"><path d="M5 3l8 5-8 5z"/></svg>
+            </button>
+            <button type="button" id="muteBtn" aria-label="Turn sound on">
+              <svg id="icoMuted" viewBox="0 0 16 16"><path d="M2 6h3l4-3v10l-4-3H2z"/><path d="M11 6l4 4M15 6l-4 4"/></svg>
+              <svg id="icoSound" viewBox="0 0 16 16" style="display:none"><path d="M2 6h3l4-3v10l-4-3H2z"/><path d="M11.5 5.5a3.5 3.5 0 0 1 0 5M13.5 3.5a6.5 6.5 0 0 1 0 9"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="tag fade-late" style="top:12%;left:-4%"><b>●</b> 3D Visualization</div>
+      <div class="tag fade-late" style="bottom:16%;right:-4%"><b>●</b> Permit Set Ready</div>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div class="marquee">
+    <span>2D Working Drawings</span><span>3D Architectural Designs</span><span>4D Video Walkthroughs</span><span>Building Permit Assistance</span><span>Residential &amp; Commercial</span><span>Site Planning</span><span>Engineering Coordination</span>
+    <span>2D Working Drawings</span><span>3D Architectural Designs</span><span>4D Video Walkthroughs</span><span>Building Permit Assistance</span><span>Residential &amp; Commercial</span><span>Site Planning</span><span>Engineering Coordination</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div>
+        <span class="eyebrow">Who We Help</span>
+        <h2>From first sketch to approved plans.</h2>
+      </div>
+      <p class="lead">Planning a build involves drawings, approvals, engineers and a lot of decisions. We bring it together into one clear path, so you can see your project, understand it, and move forward with confidence.</p>
+    </div>
+    <div class="about-cards">
+      <div class="who reveal"><span class="n">01 /</span><h3>Homeowners</h3><p>Design your dream home, plan a renovation, or add the extension you've been imagining.</p></div>
+      <div class="who reveal"><span class="n">02 /</span><h3>Property Developers</h3><p>Permit-ready drawings and site layouts that keep your development moving on schedule.</p></div>
+      <div class="who reveal"><span class="n">03 /</span><h3>Investors</h3><p>Visualize returns before you break ground with realistic 3D designs and walkthroughs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="svc-head reveal">
+      <div>
+        <span class="eyebrow">Our Services &amp; Features</span>
+        <h2>Everything you need<br>before you build.</h2>
+      </div>
+      <p class="lead">One team for drawings, visualizations, permits and coordination, so nothing falls through the cracks.</p>
+    </div>
+
+    <div class="svc-grid">
+      <article class="svc reveal">
+        <span class="num">S—01</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><rect x="4" y="4" width="24" height="24"/><path d="M4 14h12v14M16 4v6M22 14v14M16 20h6"/></svg></div>
+        <span class="dim">2D</span>
+        <h3>2D Working Drawings</h3>
+        <p>Detailed floor plans, elevations, sections, and construction drawings.</p>
+      </article>
+      <article class="svc feature reveal">
+        <span class="num">S—02</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><path d="M16 3l11 6v14l-11 6-11-6V9z"/><path d="M5 9l11 6 11-6M16 15v14"/></svg></div>
+        <span class="dim">3D</span>
+        <h3>3D Architectural Designs</h3>
+        <p>Realistic exterior and interior building visualizations.</p>
+      </article>
+      <article class="svc reveal">
+        <span class="num">S—03</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><rect x="3" y="7" width="20" height="18" rx="2"/><path d="M23 13l6-4v14l-6-4"/><path d="M10 12l6 4-6 4z"/></svg></div>
+        <span class="dim">4D</span>
+        <h3>4D Video Walkthroughs</h3>
+        <p>Visual presentations to help you experience your design before construction.</p>
+      </article>
+      <article class="svc wide reveal">
+        <span class="num">S—04</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><path d="M8 3h12l6 6v20H8z"/><path d="M20 3v6h6"/><path d="M12 19l3 3 6-7"/></svg></div>
+        <h3>Building Permit Assistance</h3>
+        <p>Preparation of drawings and documentation for submission to the relevant building authorities.</p>
+      </article>
+      <article class="svc wide reveal">
+        <span class="num">S—05</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><path d="M3 28h26"/><path d="M5 28V15l7-5 7 5v13"/><path d="M19 28V6h9v22"/><path d="M22 10h3M22 14h3M22 18h3M10 28v-6h4v6"/></svg></div>
+        <h3>Residential &amp; Commercial Designs</h3>
+        <p>Plans for new homes, apartments, renovations, and commercial properties.</p>
+      </article>
+      <article class="svc wide reveal">
+        <span class="num">S—06</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><path d="M3 7l8-3 10 3 8-3v21l-8 3-10-3-8 3z"/><path d="M11 4v21M21 7v21"/><rect x="13" y="12" width="6" height="5"/></svg></div>
+        <h3>Site Planning &amp; Layouts</h3>
+        <p>Property layouts, building placement, and space optimization.</p>
+      </article>
+      <article class="svc wide reveal">
+        <span class="num">S—07</span>
+        <div class="svc-ico"><svg viewBox="0 0 32 32"><path d="M4 26h24M7 26V12M25 26V12M4 12h24L16 4z"/><path d="M7 12l9 14 9-14M16 12v14"/></svg></div>
+        <h3>Structural &amp; Engineering Coordination</h3>
+        <p>Assistance with engineering drawings and professional stamps where required.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 2D 3D 4D -->
+<section class="grid-bg">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">See It Before You Build It</span>
+      <h2>Three dimensions of clarity.</h2>
+      <p class="lead">Every project moves from precise technical drawings to lifelike visuals to a full walkthrough, so there are no surprises on site.</p>
+    </div>
+    <div class="dims reveal">
+      <div class="dimcol">
+        <div class="big">2D</div>
+        <h3>Plan it precisely</h3>
+        <p>Floor plans, elevations and sections, drawn to scale and ready for builders and authorities.</p>
+        <div class="dim-img"><img src="img/2d.jpg" alt="Architect drafting a 2D floor plan" loading="lazy"></div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="dimcol">
+        <div class="big">3D</div>
+        <h3>See it realistically</h3>
+        <p>Photorealistic exterior and interior renders that show materials, light and space.</p>
+        <div class="dim-img"><img src="img/3d.jpg" alt="3D rendering of a modern two-storey home" loading="lazy"></div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="dimcol">
+        <div class="big">4D</div>
+        <h3>Experience it fully</h3>
+        <p>Video walkthroughs that let you move through your design before a single brick is laid.</p>
+        <div class="dim-img tour" role="img" aria-label="4D walkthrough: approaching the finished house at dusk, then moving inside to the kitchen and living room">
+          <video id="tourVid" src="img/4d-tour.mp4" poster="img/4d-tour.jpg" autoplay muted loop playsinline preload="auto"></video>
+          <div class="t-ui">
+            <span class="t-badge"><i></i>4D Walkthrough</span>
+            <span class="t-cap">
+              <em class="c1">Arriving at the property</em>
+              <em class="c2">Stepping inside</em>
+            </span>
+            <span class="t-prog"><b></b></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2D WORKING PLANS PROJECT -->
+<section class="work" id="projects">
+  <div class="wrap">
+    <div class="work-head reveal">
+      <div>
+        <span class="eyebrow">Featured Project · 2D Working Plans</span>
+        <h2>Proposed five‑bedroom<br>dwelling house.</h2>
+      </div>
+      <div class="work-stats">
+        <div><strong>13</strong>Sheets</div>
+        <div><strong>2</strong>Floors</div>
+        <div><strong>4,545</strong>Sq ft total</div>
+      </div>
+    </div>
+    <p class="lead reveal" style="margin-bottom:2.5rem">A complete working drawing set, from site plan and foundations through floor plans, elevations, sections, services, structure and roof details, prepared for permit submission. Click any sheet to open it full‑screen and zoom in.</p>
+
+    <div class="viewer reveal">
+      <button type="button" class="stage" id="stage" aria-label="Open sheet full-screen">
+        <img id="stageImg" src="plans/A-01.jpg" alt="Sheet A-01 Site Plan &amp; Location Map">
+        <span class="stage-label"><b id="stageCode">A-01</b><span id="stageTitle">Site Plan &amp; Location Map</span></span>
+        <span class="stage-zoom"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14M7 5v4M5 7h4"/></svg> View full‑screen</span>
+      </button>
+      <div class="thumbs" id="thumbs">
+          <button type="button" class="thumb active" data-i="0"><img src="plans/A-01-t.jpg" alt="A-01 Site Plan & Location Map" loading="lazy"><span><b>A-01</b>Site Plan &amp; Location Map</span></button>
+          <button type="button" class="thumb" data-i="1"><img src="plans/A-02-t.jpg" alt="A-02 Foundation Plan & Details" loading="lazy"><span><b>A-02</b>Foundation Plan &amp; Details</span></button>
+          <button type="button" class="thumb" data-i="2"><img src="plans/A-03-t.jpg" alt="A-03 Ground Floor Plan" loading="lazy"><span><b>A-03</b>Ground Floor Plan</span></button>
+          <button type="button" class="thumb" data-i="3"><img src="plans/A-04-t.jpg" alt="A-04 First Floor Plan" loading="lazy"><span><b>A-04</b>First Floor Plan</span></button>
+          <button type="button" class="thumb" data-i="4"><img src="plans/A-05-t.jpg" alt="A-05 Front & Rear Elevations" loading="lazy"><span><b>A-05</b>Front &amp; Rear Elevations</span></button>
+          <button type="button" class="thumb" data-i="5"><img src="plans/A-06-t.jpg" alt="A-06 Right & Left Elevations" loading="lazy"><span><b>A-06</b>Right &amp; Left Elevations</span></button>
+          <button type="button" class="thumb" data-i="6"><img src="plans/A-07-t.jpg" alt="A-07 Vertical Cross-Sections" loading="lazy"><span><b>A-07</b>Vertical Cross-Sections</span></button>
+          <button type="button" class="thumb" data-i="7"><img src="plans/A-08-t.jpg" alt="A-08 Electrical Plans" loading="lazy"><span><b>A-08</b>Electrical Plans</span></button>
+          <button type="button" class="thumb" data-i="8"><img src="plans/A-09-t.jpg" alt="A-09 Drainage Plans" loading="lazy"><span><b>A-09</b>Drainage Plans</span></button>
+          <button type="button" class="thumb" data-i="9"><img src="plans/A-10-t.jpg" alt="A-10 Structural Reinforcement Plan" loading="lazy"><span><b>A-10</b>Structural Reinforcement Plan</span></button>
+          <button type="button" class="thumb" data-i="10"><img src="plans/A-11-t.jpg" alt="A-11 Roof Framing Plan" loading="lazy"><span><b>A-11</b>Roof Framing Plan</span></button>
+          <button type="button" class="thumb" data-i="11"><img src="plans/A-12-t.jpg" alt="A-12 Roof & Slab Details" loading="lazy"><span><b>A-12</b>Roof &amp; Slab Details</span></button>
+          <button type="button" class="thumb" data-i="12"><img src="plans/A-13-t.jpg" alt="A-13 Drainage & Joinery Details" loading="lazy"><span><b>A-13</b>Drainage &amp; Joinery Details</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Plan viewer" hidden>
+  <div class="lb-top">
+    <span class="lb-title"><b id="lbCode">A-01</b> <span id="lbTitle"></span></span>
+    <div class="lb-tools">
+      <button type="button" id="zOut" aria-label="Zoom out">−</button>
+      <span id="zLvl">100%</span>
+      <button type="button" id="zIn" aria-label="Zoom in">+</button>
+      <button type="button" id="zFit" aria-label="Fit to screen">Fit</button>
+      <button type="button" id="lbClose" aria-label="Close viewer">✕</button>
+    </div>
+  </div>
+  <div class="lb-canvas" id="lbCanvas"><img id="lbImg" alt="" draggable="false"></div>
+  <button type="button" class="lb-nav prev" id="lbPrev" aria-label="Previous sheet">‹</button>
+  <button type="button" class="lb-nav next" id="lbNext" aria-label="Next sheet">›</button>
+  <div class="lb-hint mono">Scroll or pinch to zoom · drag to pan · ← → to change sheet</div>
+</div>
+
+
+<!-- ESTATE PORTFOLIO -->
+<section class="estate grid-bg" id="portfolio">
+  <div class="wrap">
+    <div class="estate-head reveal">
+      <div>
+        <span class="eyebrow">Estate Portfolio · 3D Visualisation</span>
+        <h2>A complete gated<br>community, designed.</h2>
+      </div>
+      <p class="lead">Master planning, site layout and photorealistic 3D renders for a mixed‑use residential estate: gated entry, commercial plaza, daycare, restaurant, chapel, clubhouse, sports courts, parks and dozens of family homes.</p>
+    </div>
+
+    <button type="button" class="estate-lead reveal" data-n="15" data-title="Aerial: full estate overview">
+      <img src="estate/e15.jpg" alt="Aerial overview of the full estate" loading="lazy">
+      <span class="estate-lead-tag"><b>Featured</b>Full estate overview</span>
+      <span class="estate-chips">
+        <i>Gated entry</i><i>Commercial plaza</i><i>Daycare</i><i>Restaurant</i><i>Chapel</i><i>Clubhouse &amp; pool</i><i>Sports courts</i><i>Parks</i><i>Residences</i>
+      </span>
+    </button>
+
+    <div class="estate-filters reveal" role="tablist">
+      <button type="button" class="on" data-f="all">All</button>
+      <button type="button" data-f="aerial">Aerial &amp; Master Plan</button>
+      <button type="button" data-f="residential">Residential</button>
+      <button type="button" data-f="commercial">Entrance &amp; Commercial</button>
+      <button type="button" data-f="amenities">Amenities</button>
+    </div>
+
+    <div class="estate-grid" id="estateGrid">
+        <button type="button" class="ecard wide" data-n="16" data-cat="aerial" data-title="Master plan, top view"><img src="estate/e16-t.jpg" alt="Master plan, top view" loading="lazy"><span class="ecap"><b>Aerial</b>Master plan, top view</span></button>
+        <button type="button" class="ecard" data-n="01" data-cat="commercial" data-title="Gated entrance &amp; gatehouse"><img src="estate/e01-t.jpg" alt="Gated entrance &amp; gatehouse" loading="lazy"><span class="ecap"><b>Commercial</b>Gated entrance &amp; gatehouse</span></button>
+        <button type="button" class="ecard" data-n="02" data-cat="commercial" data-title="Daycare centre &amp; palm boulevard"><img src="estate/e02-t.jpg" alt="Daycare centre &amp; palm boulevard" loading="lazy"><span class="ecap"><b>Commercial</b>Daycare centre &amp; palm boulevard</span></button>
+        <button type="button" class="ecard" data-n="03" data-cat="commercial" data-title="Commercial plaza courtyard"><img src="estate/e03-t.jpg" alt="Commercial plaza courtyard" loading="lazy"><span class="ecap"><b>Commercial</b>Commercial plaza courtyard</span></button>
+        <button type="button" class="ecard" data-n="04" data-cat="commercial" data-title="Restaurant &amp; dining"><img src="estate/e04-t.jpg" alt="Restaurant &amp; dining" loading="lazy"><span class="ecap"><b>Commercial</b>Restaurant &amp; dining</span></button>
+        <button type="button" class="ecard wide" data-n="14" data-cat="aerial" data-title="Aerial: commercial core &amp; amenities"><img src="estate/e14-t.jpg" alt="Aerial: commercial core &amp; amenities" loading="lazy"><span class="ecap"><b>Aerial</b>Aerial: commercial core &amp; amenities</span></button>
+        <button type="button" class="ecard" data-n="06" data-cat="amenities" data-title="Clubhouse, pool &amp; sports courts"><img src="estate/e06-t.jpg" alt="Clubhouse, pool &amp; sports courts" loading="lazy"><span class="ecap"><b>Amenities</b>Clubhouse, pool &amp; sports courts</span></button>
+        <button type="button" class="ecard" data-n="07" data-cat="amenities" data-title="Pool deck &amp; tennis court"><img src="estate/e07-t.jpg" alt="Pool deck &amp; tennis court" loading="lazy"><span class="ecap"><b>Amenities</b>Pool deck &amp; tennis court</span></button>
+        <button type="button" class="ecard" data-n="08" data-cat="amenities" data-title="Community chapel"><img src="estate/e08-t.jpg" alt="Community chapel" loading="lazy"><span class="ecap"><b>Amenities</b>Community chapel</span></button>
+        <button type="button" class="ecard" data-n="05" data-cat="residential" data-title="Roundabout &amp; residential streets"><img src="estate/e05-t.jpg" alt="Roundabout &amp; residential streets" loading="lazy"><span class="ecap"><b>Residential</b>Roundabout &amp; residential streets</span></button>
+        <button type="button" class="ecard" data-n="09" data-cat="residential" data-title="Residential bungalows"><img src="estate/e09-t.jpg" alt="Residential bungalows" loading="lazy"><span class="ecap"><b>Residential</b>Residential bungalows</span></button>
+        <button type="button" class="ecard" data-n="10" data-cat="residential" data-title="Residential street view"><img src="estate/e10-t.jpg" alt="Residential street view" loading="lazy"><span class="ecap"><b>Residential</b>Residential street view</span></button>
+        <button type="button" class="ecard wide" data-n="13" data-cat="aerial" data-title="Aerial: homes &amp; chapel"><img src="estate/e13-t.jpg" alt="Aerial: homes &amp; chapel" loading="lazy"><span class="ecap"><b>Aerial</b>Aerial: homes &amp; chapel</span></button>
+        <button type="button" class="ecard" data-n="11" data-cat="amenities" data-title="Pocket park &amp; curved seating"><img src="estate/e11-t.jpg" alt="Pocket park &amp; curved seating" loading="lazy"><span class="ecap"><b>Amenities</b>Pocket park &amp; curved seating</span></button>
+        <button type="button" class="ecard" data-n="12" data-cat="amenities" data-title="Community green"><img src="estate/e12-t.jpg" alt="Community green" loading="lazy"><span class="ecap"><b>Amenities</b>Community green</span></button>
+    </div>
+  </div>
+</section>
+
+
+<!-- 3D PROJECTS -->
+<section class="p3" id="projects-3d">
+  <div class="wrap">
+    <div class="estate-head reveal">
+      <div>
+        <span class="eyebrow">3D Projects</span>
+        <h2>Designs you can see<br>before they're built.</h2>
+      </div>
+      <p class="lead">Photorealistic exterior renders and 3D floor plan cut‑aways for commercial and residential clients, so you can judge materials, layout, light and flow long before construction begins.</p>
+    </div>
+    <div class="p3-grid reveal">
+      <button type="button" class="ecard p3card big" data-group="p3d" data-src="p3d/p1.jpg" data-title="Fast-food restaurant, evening exterior"><img src="p3d/p1-t.jpg" alt="Fast-food restaurant, evening exterior" loading="lazy"><span class="ecap"><b>Commercial</b>Fast-food restaurant, evening exterior</span></button>
+      <button type="button" class="ecard p3card wide" data-group="p3d" data-src="p3d/p2.jpg" data-title="Modern hillside residence"><img src="p3d/p2-t.jpg" alt="Modern hillside residence" loading="lazy"><span class="ecap"><b>Residential</b>Modern hillside residence</span></button>
+      <button type="button" class="ecard p3card " data-group="p3d" data-src="p3d/p3.jpg" data-title="Villa interior layout, top-down cut-away"><img src="p3d/p3-t.jpg" alt="Villa interior layout, top-down cut-away" loading="lazy"><span class="ecap"><b>3D Floor Plan</b>Villa interior layout, top-down cut-away</span></button>
+      <button type="button" class="ecard p3card " data-group="p3d" data-src="p3d/p4.jpg" data-title="Villa with pool deck, perspective cut-away"><img src="p3d/p4-t.jpg" alt="Villa with pool deck, perspective cut-away" loading="lazy"><span class="ecap"><b>3D Floor Plan</b>Villa with pool deck, perspective cut-away</span></button>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="eBox" role="dialog" aria-modal="true" aria-label="Render viewer" hidden>
+  <div class="lb-top">
+    <span class="lb-title"><b id="eCount">1 / 16</b> <span id="eTitle"></span></span>
+    <div class="lb-tools"><button type="button" id="eClose" aria-label="Close viewer">✕</button></div>
+  </div>
+  <div class="e-stage"><img id="eImg" alt=""></div>
+  <button type="button" class="lb-nav prev" id="ePrev" aria-label="Previous render">‹</button>
+  <button type="button" class="lb-nav next" id="eNext" aria-label="Next render">›</button>
+</div>
+
+<!-- WHAT WE NEED -->
+<section class="need" id="get-started">
+  <div class="wrap need-grid">
+    <div class="sticky reveal">
+      <span class="eyebrow">What We Need to Get Started</span>
+      <h2>Your project checklist.</h2>
+      <p class="lead">To begin your project, please provide the following. Tick off what you already have; it'll be added to your project brief below.</p>
+      <div class="progress"><span id="count">0 / 7</span><div class="bar"><i id="bar"></i></div><span>ready</span></div>
+      <div class="note">
+        <strong>Don't have everything ready? No problem!</strong>
+        <p>We can start with a consultation to discuss your ideas and guide you through the next steps.</p>
+      </div>
+    </div>
+
+    <ol class="checklist" id="checklist">
+      <li class="item reveal" data-key="Property Location"><span class="idx">01</span><div><h3>Property Location</h3><p>The address or location where you plan to build.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+      <li class="item reveal" data-key="Land Survey or Lot Measurements"><span class="idx">02</span><div><h3>Land Survey or Lot Measurements</h3><p>A copy of your survey or property dimensions, if available.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+      <li class="item reveal" data-key="Type of Project"><span class="idx">03</span><div><h3>Type of Project</h3><p>New construction, renovation, extension, or commercial development.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+      <li class="item reveal" data-key="Building Requirements"><span class="idx">04</span><div><h3>Building Requirements</h3><p>Number of floors, bedrooms, bathrooms, kitchens, and other desired spaces.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+      <li class="item reveal" data-key="Design Inspiration"><span class="idx">05</span><div><h3>Design Inspiration</h3><p>Photos, sketches, or examples of buildings you like.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+      <li class="item reveal" data-key="Existing Plans"><span class="idx">06</span><div><h3>Existing Plans</h3><p>Any previous architectural drawings or building plans, if available.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+      <li class="item reveal" data-key="Estimated Budget"><span class="idx">07</span><div><h3>Estimated Budget</h3><p>Your approximate construction budget to help guide the design.</p></div><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7"/></svg></span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">How It Works</span>
+      <h2>A simpler path to permit.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Consultation</h3><p>We discuss your ideas, site, budget and goals, even if you're starting from scratch.</p></div>
+      <div class="step reveal"><h3>Design</h3><p>2D working drawings, then 3D visuals and 4D walkthroughs so you can refine every detail.</p></div>
+      <div class="step reveal"><h3>Coordination</h3><p>We coordinate structural and engineering drawings and professional stamps where required.</p></div>
+      <div class="step reveal"><h3>Permit Submission</h3><p>Complete drawings and documentation prepared for the relevant building authorities.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-card reveal">
+      <div>
+        <span class="logo-card cta-logo"><img src="brand/logo-orig-360.png" alt="Claytech Construction" width="168" height="120"></span>
+        <span class="eyebrow">Ready to Get Started?</span>
+        <h2>Let's draw up your next project.</h2>
+        <p class="lead">Tell us a little about what you're planning. We'll turn it into a clear project brief and walk you through the next steps.</p>
+        <ul>
+          <li>Free initial consultation</li>
+          <li>Residential &amp; commercial projects</li>
+          <li>Drawings prepared for permit submission</li>
+        </ul>
+        <div class="contact-cards">
+          <a class="ccard" href="mailto:info@claytechconstruction.com"><svg viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2.5 5l7.5 6 7.5-6"/></svg><span><small>Email us</small>info@claytechconstruction.com</span></a>
+          <a class="ccard" href="tel:+15702428580"><svg viewBox="0 0 20 20"><path d="M5 2.5h3l1.5 4-2 1.2a10 10 0 0 0 4.8 4.8l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 3.5 4.1 1.5 1.5 0 0 1 5 2.5z"/></svg><span><small>Call us</small>(570) 242-8580</span></a>
+        </div>
+      </div>
+
+      <form id="briefForm" novalidate>
+        <div class="field"><label for="name">Full name</label><input id="name" required placeholder="Jane Doe"></div>
+        <div class="field"><label for="phone">Phone / Email</label><input id="phone" required placeholder="How should we reach you?"></div>
+        <div class="field"><label for="location">Property location</label><input id="location" placeholder="Address or area"></div>
+        <div class="field"><label for="type">Type of project</label>
+          <select id="type">
+            <option value="">Select one…</option>
+            <option>New construction</option>
+            <option>Renovation</option>
+            <option>Extension</option>
+            <option>Commercial development</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field"><label for="budget">Estimated budget</label><input id="budget" placeholder="Approximate amount"></div>
+        <div class="field"><label for="service">Service needed</label>
+          <select id="service">
+            <option value="">Select one…</option>
+            <option>2D Working Drawings</option>
+            <option>3D Architectural Designs</option>
+            <option>4D Video Walkthroughs</option>
+            <option>Building Permit Assistance</option>
+            <option>Site Planning &amp; Layouts</option>
+            <option>Structural &amp; Engineering Coordination</option>
+            <option>Full package</option>
+          </select>
+        </div>
+        <div class="field full"><label for="req">Building requirements &amp; ideas</label><textarea id="req" placeholder="Floors, bedrooms, bathrooms, kitchens, style you like…"></textarea></div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Create My Project Brief
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+          <small id="formMsg">Includes the checklist items you ticked above. See our <a href="#terms" style="color:var(--accent);text-decoration:underline">Terms &amp; Conditions</a>.</small>
+        </div>
+        <div class="brief" id="brief" aria-live="polite">
+          <div class="brief-head"><strong>Your Project Brief</strong><div style="display:flex;gap:.5rem;flex-wrap:wrap"><a class="btn btn-primary" id="mailBtn" href="mailto:info@claytechconstruction.com" style="padding:.5rem 1rem;font-size:.85rem">Email this brief</a><button type="button" class="btn btn-ghost" id="copyBtn" style="padding:.5rem 1rem;font-size:.85rem">Copy brief</button></div></div>
+          <pre id="briefText"></pre>
+          <p style="color:var(--muted);font-size:.85rem;margin-top:.8rem">Send this brief to <b style="color:var(--ink)">info@claytechconstruction.com</b> or call <b style="color:var(--ink)">(570) 242-8580</b> to book your consultation. If the email button doesn't open your mail app, copy the brief and paste it into an email.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a href="#home" class="foot-logo"><span class="logo-card"><img src="brand/logo-orig-360.png" alt="Claytech Construction" width="252" height="180"></span><small>Your Blueprint to Success</small></a>
+    <div class="foot-contact"><a href="https://www.facebook.com/Claytechn" target="_blank" rel="noopener" aria-label="Claytech Construction on Facebook" class="fb-foot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg>Facebook</a><a href="mailto:info@claytechconstruction.com"><svg viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="12" rx="2"/><path d="M2.5 5l7.5 6 7.5-6"/></svg>info@claytechconstruction.com</a><a href="tel:+15702428580"><svg viewBox="0 0 20 20"><path d="M5 2.5h3l1.5 4-2 1.2a10 10 0 0 0 4.8 4.8l1.2-2 4 1.5v3a1.5 1.5 0 0 1-1.6 1.5A15 15 0 0 1 3.5 4.1 1.5 1.5 0 0 1 5 2.5z"/></svg>(570) 242-8580</a></div>
+    <div class="links"><a href="#services">Services</a><a href="#projects">Projects</a><a href="#portfolio">Portfolio</a><a href="#projects-3d">3D Projects</a><a href="#get-started">Get Started</a><a href="#contact">Contact</a><a href="#terms" class="terms-link">Terms &amp; Conditions</a></div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span class="mono">© <span id="yr"></span> Claytech Construction. All rights reserved.</span>
+    <a href="https://www.facebook.com/Claytechn" target="_blank" rel="noopener" class="fb-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg>Follow us on Facebook</a>
+    <span class="powered">Powered by <b>Claytech Global</b></span>
+  </div>
+</footer>
+
+<div class="terms" id="termsModal" role="dialog" aria-modal="true" aria-labelledby="termsTitle" hidden>
+  <div class="terms-panel">
+    <div class="terms-head">
+      <div>
+        <span class="eyebrow">Legal</span>
+        <h2 id="termsTitle">Terms &amp; Conditions</h2>
+        <p class="mono terms-date">Last updated: <span id="termsDate"></span></p>
+      </div>
+      <button type="button" class="terms-close" id="termsClose" aria-label="Close terms">✕</button>
+    </div>
+    <div class="terms-body">
+        <h3><span>01</span>Acceptance of Terms</h3>
+        <p>By using this website, requesting a consultation, or engaging Claytech Construction ("Claytech", "we", "us") for any service, you ("the Client") agree to these Terms &amp; Conditions. If you do not agree, please do not use our services.</p>
+        <h3><span>02</span>Scope of Services</h3>
+        <p>Claytech provides architectural design and planning services, including 2D working drawings, 3D architectural designs, 4D video walkthroughs, building permit drawing and documentation preparation, residential and commercial designs, site planning and layouts, and coordination of structural and engineering drawings. The exact scope, deliverables, fees and timeline for each project are confirmed in a written quotation or agreement before work begins.</p>
+        <h3><span>03</span>Client Information &amp; Responsibilities</h3>
+        <p>The Client is responsible for providing accurate and complete information, including the property location, land survey or lot measurements, project type, building requirements, design inspiration, existing plans and estimated budget. Claytech relies on this information and is not responsible for errors, delays or additional costs arising from inaccurate, incomplete or late information. The Client confirms they own the property or are authorised to commission work on it.</p>
+        <h3><span>04</span>Quotations, Fees &amp; Payment</h3>
+        <p>Quotations are valid for 30 days unless stated otherwise. A deposit may be required before work begins, with the balance due as set out in the project agreement. Final drawings and files may be withheld until all outstanding fees are paid. Work outside the agreed scope will be quoted and billed separately.</p>
+        <h3><span>05</span>Revisions</h3>
+        <p>Each project includes the number of revision rounds stated in the quotation. Further revisions, or changes after drawings are approved, may incur additional fees and extend the timeline.</p>
+        <h3><span>06</span>Building Permits &amp; Approvals</h3>
+        <p>Claytech prepares drawings and documentation for submission to the relevant building authorities. Approval of any application rests solely with those authorities, and Claytech does not guarantee approval or processing times. Authority fees, survey fees and other third-party charges are the Client's responsibility unless agreed otherwise in writing. Amendments requested by an authority may be charged as additional work where they fall outside the original scope.</p>
+        <h3><span>07</span>Engineering &amp; Professional Stamps</h3>
+        <p>Where structural or engineering drawings, calculations or professional stamps are required, Claytech coordinates with independent licensed professionals. Those professionals are responsible for their own work, and their fees may be charged separately.</p>
+        <h3><span>08</span>3D Visualisations &amp; 4D Walkthroughs</h3>
+        <p>3D renders and 4D video walkthroughs are artistic representations for illustration only. Materials, colours, finishes, landscaping, lighting and furniture shown may differ from the completed building. The approved working drawings, not the visualisations, govern construction.</p>
+        <h3><span>09</span>Construction &amp; Site Conditions</h3>
+        <p>Unless separately agreed in writing, Claytech is not the building contractor and is not responsible for construction quality, workmanship, site supervision, construction costs or the contractor's compliance with the drawings. The Client should engage qualified contractors and obtain all required inspections.</p>
+        <h3><span>10</span>Intellectual Property</h3>
+        <p>All drawings, designs, models, renders and videos remain the intellectual property of Claytech until paid in full. On full payment, the Client receives a licence to use the drawings for the construction of the project at the stated location only. Drawings may not be reused for other sites, resold, or modified by others without Claytech's written consent. Claytech may use images of completed designs in its portfolio and marketing, with client names and private details removed.</p>
+        <h3><span>11</span>Confidentiality &amp; Privacy</h3>
+        <p>We treat client information, including names, addresses and property details, as confidential. We use it only to deliver our services and do not sell it to third parties. Information may be shared with authorities, engineers or consultants only as needed to complete your project.</p>
+        <h3><span>12</span>Cancellation</h3>
+        <p>The Client may cancel a project by written notice. Fees for work completed up to the cancellation date, and any non-refundable third-party costs, remain payable. Deposits are non-refundable once work has begun unless otherwise agreed in writing.</p>
+        <h3><span>13</span>Limitation of Liability</h3>
+        <p>To the fullest extent permitted by law, Claytech's total liability for any claim relating to a project is limited to the fees paid for that project. Claytech is not liable for indirect or consequential losses, including loss of profit, delays caused by authorities or third parties, or changes in regulations after drawings are delivered.</p>
+        <h3><span>14</span>Website Use</h3>
+        <p>Content on this website is for general information only and does not constitute professional advice for any specific project. The project brief tool on this site does not send information to us automatically; please email your brief to info@claytechconstruction.com or call (570) 242-8580 to request a consultation.</p>
+        <h3><span>15</span>Changes to These Terms</h3>
+        <p>Claytech may update these Terms &amp; Conditions from time to time. The version published on this website at the time of your engagement applies to your project unless your written agreement says otherwise.</p>
+        <h3><span>16</span>Governing Law</h3>
+        <p>These Terms are governed by the laws of the jurisdiction in which the project property is located, unless the project agreement states otherwise.</p>
+        <p class="terms-end">Questions about these terms? Contact Claytech Construction at <b>info@claytechconstruction.com</b> or <b>(570) 242-8580</b> before engaging our services.<br><strong>Powered by Claytech Global</strong></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+
+  // hero video controls
+  const vid = document.getElementById('heroVideo');
+  const sw = (a,b,on) => { document.getElementById(a).style.display = on?'none':''; document.getElementById(b).style.display = on?'':'none'; };
+  document.getElementById('playBtn').addEventListener('click', e => {
+    if (vid.paused) { vid.play().catch(()=>{}); sw('icoPlay','icoPause',true); e.currentTarget.setAttribute('aria-label','Pause video'); }
+    else { vid.pause(); sw('icoPause','icoPlay',true); e.currentTarget.setAttribute('aria-label','Play video'); }
+  });
+  document.getElementById('muteBtn').addEventListener('click', e => {
+    vid.muted = !vid.muted; if (!vid.muted) vid.play().catch(()=>{});
+    sw(vid.muted?'icoSound':'icoMuted', vid.muted?'icoMuted':'icoSound', true);
+    e.currentTarget.setAttribute('aria-label', vid.muted?'Turn sound on':'Mute video');
+  });
+  vid.play && vid.play().catch(()=>{ sw('icoPause','icoPlay',true); });
+
+
+  // 2D plans viewer
+  const SHEETS = [...document.querySelectorAll('#thumbs .thumb')].map(b => ({code:b.querySelector('b').textContent, title:b.querySelector('span').textContent.replace(b.querySelector('b').textContent,'')}));
+  let cur = 0;
+  const stageImg = document.getElementById('stageImg');
+  const pick = i => {
+    cur = (i + SHEETS.length) % SHEETS.length;
+    const sh = SHEETS[cur];
+    stageImg.style.opacity = .3;
+    const tmp = new Image(); tmp.onload = () => { stageImg.src = tmp.src; stageImg.style.opacity = 1; }; tmp.src = 'plans/' + sh.code + '.jpg';
+    stageImg.alt = 'Sheet ' + sh.code + ' ' + sh.title;
+    document.getElementById('stageCode').textContent = sh.code;
+    document.getElementById('stageTitle').textContent = sh.title;
+    document.querySelectorAll('#thumbs .thumb').forEach((b,k) => b.classList.toggle('active', k===cur));
+  };
+  document.querySelectorAll('#thumbs .thumb').forEach((b,k) => b.addEventListener('click', () => pick(k)));
+
+  const lb = document.getElementById('lightbox'), canvas = document.getElementById('lbCanvas'), lbImg = document.getElementById('lbImg');
+  let sc = 1, fit = 1, tx = 0, ty = 0;
+  const apply = () => { lbImg.style.transform = `translate(${tx}px,${ty}px) scale(${sc})`; document.getElementById('zLvl').textContent = Math.round(sc/fit*100) + '%'; };
+  const fitView = () => {
+    const W = canvas.clientWidth, H = canvas.clientHeight, iw = lbImg.naturalWidth || 3600, ih = lbImg.naturalHeight || 2400;
+    fit = sc = Math.min(W/iw, H/ih) * .96; tx = (W - iw*sc)/2; ty = (H - ih*sc)/2; apply();
+  };
+  const zoomAt = (f, cx, cy) => {
+    const ns = Math.min(Math.max(sc*f, fit*.8), fit*8);
+    tx = cx - (cx - tx) * ns/sc; ty = cy - (cy - ty) * ns/sc; sc = ns; apply();
+  };
+  const loadLb = () => {
+    const sh = SHEETS[cur];
+    document.getElementById('lbCode').textContent = sh.code; document.getElementById('lbTitle').textContent = sh.title;
+    lbImg.alt = 'Sheet ' + sh.code + ' ' + sh.title;
+    lbImg.onload = fitView; lbImg.src = 'plans/' + sh.code + '.jpg';
+    if (lbImg.complete && lbImg.naturalWidth) fitView();
+  };
+  const openLb = () => { lb.hidden = false; document.body.style.overflow = 'hidden'; loadLb(); };
+  const closeLb = () => { lb.hidden = true; document.body.style.overflow = ''; };
+  const step = d => { pick(cur + d); loadLb(); };
+  document.getElementById('stage').addEventListener('click', openLb);
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', () => step(-1));
+  document.getElementById('lbNext').addEventListener('click', () => step(1));
+  document.getElementById('zIn').addEventListener('click', () => zoomAt(1.4, canvas.clientWidth/2, canvas.clientHeight/2));
+  document.getElementById('zOut').addEventListener('click', () => zoomAt(1/1.4, canvas.clientWidth/2, canvas.clientHeight/2));
+  document.getElementById('zFit').addEventListener('click', fitView);
+  window.addEventListener('resize', () => { if (!lb.hidden) fitView(); });
+  document.addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeLb(); else if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === '+' || e.key === '=') zoomAt(1.3, canvas.clientWidth/2, canvas.clientHeight/2);
+    else if (e.key === '-') zoomAt(1/1.3, canvas.clientWidth/2, canvas.clientHeight/2);
+  });
+  canvas.addEventListener('wheel', e => { e.preventDefault(); const r = canvas.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.15 : 1/1.15, e.clientX - r.left, e.clientY - r.top); }, {passive:false});
+  const ptrs = new Map(); let lastDist = 0, lastX = 0, lastY = 0;
+  canvas.addEventListener('pointerdown', e => { canvas.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, e); lastX = e.clientX; lastY = e.clientY; canvas.classList.add('drag'); lastDist = 0; });
+  canvas.addEventListener('pointermove', e => {
+    if (!ptrs.has(e.pointerId)) return; ptrs.set(e.pointerId, e);
+    if (ptrs.size === 2) {
+      const [a,b] = [...ptrs.values()], d = Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY), r = canvas.getBoundingClientRect();
+      if (lastDist) zoomAt(d/lastDist, (a.clientX+b.clientX)/2 - r.left, (a.clientY+b.clientY)/2 - r.top);
+      lastDist = d;
+    } else { tx += e.clientX - lastX; ty += e.clientY - lastY; lastX = e.clientX; lastY = e.clientY; apply(); }
+  });
+  const up = e => { ptrs.delete(e.pointerId); lastDist = 0; if (ptrs.size === 1) { const p = [...ptrs.values()][0]; lastX = p.clientX; lastY = p.clientY; } if (!ptrs.size) canvas.classList.remove('drag'); };
+  canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
+  canvas.addEventListener('dblclick', e => { const r = canvas.getBoundingClientRect(); zoomAt(2, e.clientX - r.left, e.clientY - r.top); });
+
+
+  // 4D tour video captions + progress
+  const tv = document.getElementById('tourVid');
+  if (tv) {
+    const bar = document.querySelector('.t-prog b'), c1 = document.querySelector('.t-cap .c1'), c2 = document.querySelector('.t-cap .c2');
+    const tick = () => {
+      if (tv.duration) {
+        const f = tv.currentTime / tv.duration;
+        bar.style.width = (f*100) + '%';
+        c1.classList.toggle('on', f > .04 && f < .48);
+        c2.classList.toggle('on', f > .6 && f < .94);
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    tv.play && tv.play().catch(()=>{});
+  }
+
+
+  // terms & conditions
+  const tm = document.getElementById('termsModal');
+  document.getElementById('termsDate').textContent = 'November 2026';
+  const openTerms = () => { tm.hidden = false; document.body.style.overflow = 'hidden'; tm.scrollTop = 0; };
+  const closeTerms = () => { tm.hidden = true; document.body.style.overflow = ''; if (location.hash === '#terms') history.replaceState(null, '', location.pathname); };
+  const checkHash = () => { if (location.hash === '#terms') openTerms(); };
+  window.addEventListener('hashchange', checkHash); checkHash();
+  document.querySelectorAll('a[href="#terms"]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openTerms(); try { history.replaceState(null, '', '#terms'); } catch(_){} }));
+  document.getElementById('termsClose').addEventListener('click', closeTerms);
+  tm.addEventListener('click', e => { if (e.target === tm) closeTerms(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !tm.hidden) closeTerms(); });
+
+
+  // estate portfolio
+  const eCards = [...document.querySelectorAll('#estateGrid .ecard')];
+  document.querySelectorAll('.estate-filters button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.estate-filters button').forEach(x => x.classList.toggle('on', x===b));
+    const f = b.dataset.f; eCards.forEach(c => c.classList.toggle('hide', f!=='all' && c.dataset.cat!==f));
+  }));
+  const eBox = document.getElementById('eBox'), eImg = document.getElementById('eImg');
+  let eList = [], eIdx = 0;
+  const eShow = () => {
+    const c = eList[eIdx];
+    eImg.src = c.dataset.src || ('estate/e' + c.dataset.n + '.jpg'); eImg.alt = c.dataset.title.replace('&amp;','&');
+    document.getElementById('eTitle').innerHTML = c.dataset.title;
+    document.getElementById('eCount').textContent = (eIdx+1) + ' / ' + eList.length;
+  };
+  const p3Cards = [...document.querySelectorAll('.p3card')];
+  const eOpen = el => {
+    const lead = document.querySelector('.estate-lead');
+    eList = el.dataset.group === 'p3d' ? p3Cards : [lead, ...eCards.filter(c => !c.classList.contains('hide'))];
+    eIdx = Math.max(0, eList.indexOf(el)); eBox.hidden = false; document.body.style.overflow = 'hidden'; eShow();
+  };
+  const eClose = () => { eBox.hidden = true; document.body.style.overflow = ''; };
+  [document.querySelector('.estate-lead'), ...eCards, ...p3Cards].forEach(c => c.addEventListener('click', () => eOpen(c)));
+  document.getElementById('eClose').addEventListener('click', eClose);
+  document.getElementById('ePrev').addEventListener('click', () => { eIdx = (eIdx-1+eList.length)%eList.length; eShow(); });
+  document.getElementById('eNext').addEventListener('click', () => { eIdx = (eIdx+1)%eList.length; eShow(); });
+  eBox.addEventListener('click', e => { if (e.target.classList.contains('e-stage')) eClose(); });
+  document.addEventListener('keydown', e => {
+    if (eBox.hidden) return;
+    if (e.key==='Escape') eClose(); else if (e.key==='ArrowRight') document.getElementById('eNext').click(); else if (e.key==='ArrowLeft') document.getElementById('ePrev').click();
+  });
+  let eX = null; eBox.addEventListener('touchstart', e => eX = e.touches[0].clientX, {passive:true});
+  eBox.addEventListener('touchend', e => { if (eX===null) return; const d = e.changedTouches[0].clientX - eX; if (Math.abs(d) > 50) document.getElementById(d<0?'eNext':'ePrev').click(); eX = null; });
+
+  // header on scroll
+  const header = document.getElementById('top');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // mobile menu
+  const menu = document.getElementById('mobileMenu');
+  document.getElementById('burger').addEventListener('click', () => menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+  // reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay = (i%4)*70 + 'ms'; io.observe(el); });
+
+  // checklist
+  const items = [...document.querySelectorAll('#checklist .item')];
+  const update = () => {
+    const n = items.filter(i => i.classList.contains('on')).length;
+    document.getElementById('count').textContent = n + ' / 7';
+    document.getElementById('bar').style.width = (n/7*100) + '%';
+  };
+  items.forEach(i => {
+    i.setAttribute('role','checkbox'); i.setAttribute('aria-checked','false'); i.tabIndex = 0;
+    const toggle = () => { i.classList.toggle('on'); i.setAttribute('aria-checked', i.classList.contains('on')); update(); };
+    i.addEventListener('click', toggle);
+    i.addEventListener('keydown', e => { if (e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+  });
+
+  // brief builder
+  const v = id => document.getElementById(id).value.trim();
+  document.getElementById('briefForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = document.getElementById('formMsg');
+    if (!v('name') || !v('phone')) { msg.textContent = 'Please add your name and a way to reach you.'; msg.className='err'; return; }
+    msg.textContent = 'Brief ready below.'; msg.className='';
+    const have = items.filter(i => i.classList.contains('on')).map(i => i.dataset.key);
+    const missing = items.filter(i => !i.classList.contains('on')).map(i => i.dataset.key);
+    const text =
+`CLAYTECH CONSTRUCTION — PROJECT BRIEF
+-------------------------------------
+Name:            ${v('name')}
+Contact:         ${v('phone')}
+Location:        ${v('location') || '—'}
+Project type:    ${v('type') || '—'}
+Service needed:  ${v('service') || '—'}
+Est. budget:     ${v('budget') || '—'}
+
+Requirements & ideas:
+${v('req') || '—'}
+
+Ready to provide:
+${have.length ? have.map(h => '  ✓ ' + h).join('\n') : '  (none ticked yet)'}
+
+Still to gather:
+${missing.length ? missing.map(h => '  ○ ' + h).join('\n') : '  Nothing — all set!'}
+
+Request: initial consultation`;
+    document.getElementById('briefText').textContent = text;
+    document.getElementById('mailBtn').href = 'mailto:info@claytechconstruction.com?subject=' + encodeURIComponent('Project Brief: ' + v('name')) + '&body=' + encodeURIComponent(text);
+    const b = document.getElementById('brief'); b.classList.add('show');
+    b.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', async e => {
+    const btn = e.currentTarget;
+    try { await navigator.clipboard.writeText(document.getElementById('briefText').textContent); btn.textContent = 'Copied ✓'; }
+    catch { btn.textContent = 'Select & copy manually'; }
+    setTimeout(() => btn.textContent = 'Copy brief', 2200);
+  });
+</script>
+</body>
+</html>
