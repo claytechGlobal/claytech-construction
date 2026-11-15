@@ -310,6 +310,14 @@
   @media (max-width:980px){.p3-grid{grid-template-columns:1fr 1fr}.p3card.big{grid-column:span 2;grid-row:span 2}.p3card.wide{grid-column:span 2}}
   @media (max-width:760px){.p3-grid{grid-template-columns:1fr;grid-auto-rows:auto}.p3card,.p3card.big,.p3card.wide{grid-column:auto;grid-row:auto;aspect-ratio:16/10}}
 
+  .proj-tabs{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:2.5rem}
+  .proj-tabs button{font:inherit;text-align:left;cursor:pointer;border:1px solid #e3ddd0;background:#fff;color:var(--paper-ink);border-radius:14px;padding:.85rem 1.3rem;font-weight:800;font-size:1.02rem;transition:.2s;min-width:220px}
+  .proj-tabs button small{display:block;font-family:var(--mono);font-weight:500;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:.15rem}
+  .proj-tabs button:hover{border-color:#cfc5b0}
+  .proj-tabs button.on{background:var(--navy);border-color:var(--navy);color:var(--ink);box-shadow:0 14px 30px -16px rgba(11,28,46,.6)}
+  .proj-tabs button.on small{color:var(--accent)}
+  .thumbs[hidden]{display:none}
+
   footer{border-top:1px solid var(--line);padding:3rem 0;color:var(--muted);font-size:.9rem}
   .foot{display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap}
   .foot .links{display:flex;gap:1.8rem}
@@ -619,18 +627,38 @@
 <!-- 2D WORKING PLANS PROJECT -->
 <section class="work" id="projects">
   <div class="wrap">
-    <div class="work-head reveal">
-      <div>
-        <span class="eyebrow">Featured Project · 2D Working Plans</span>
-        <h2>Proposed five‑bedroom<br>dwelling house.</h2>
-      </div>
-      <div class="work-stats">
-        <div><strong>13</strong>Sheets</div>
-        <div><strong>2</strong>Floors</div>
-        <div><strong>4,545</strong>Sq ft total</div>
-      </div>
+    <div class="proj-tabs reveal" role="tablist" aria-label="Choose a project">
+      <button type="button" class="on" data-set="house" role="tab" aria-selected="true"><small>Project 01</small>Five‑Bedroom House</button>
+      <button type="button" data-set="duplex" role="tab" aria-selected="false"><small>Project 02</small>Duplex / Multiplex</button>
     </div>
-    <p class="lead reveal" style="margin-bottom:2.5rem">A complete working drawing set, from site plan and foundations through floor plans, elevations, sections, services, structure and roof details, prepared for permit submission. Click any sheet to open it full‑screen and zoom in.</p>
+    <div class="proj-info" data-for="house">
+      <div class="work-head">
+        <div>
+          <span class="eyebrow">Featured Project · 2D Working Plans</span>
+          <h2>Proposed five‑bedroom<br>dwelling house.</h2>
+        </div>
+        <div class="work-stats">
+          <div><strong>13</strong>Sheets</div>
+          <div><strong>2</strong>Floors</div>
+          <div><strong>4,545</strong>Sq ft total</div>
+        </div>
+      </div>
+      <p class="lead" style="margin-bottom:2.5rem">A complete working drawing set, from site plan and foundations through floor plans, elevations, sections, services, structure and roof details, prepared for permit submission. Click any sheet to open it full‑screen and zoom in.</p>
+    </div>
+    <div class="proj-info" data-for="duplex" hidden>
+      <div class="work-head">
+        <div>
+          <span class="eyebrow">Featured Project · Construction Set</span>
+          <h2>New‑construction<br>duplex, two units.</h2>
+        </div>
+        <div class="work-stats">
+          <div><strong>14</strong>Sheets</div>
+          <div><strong>3</strong>Stories</div>
+          <div><strong>2,814</strong>Sq ft, 2 units</div>
+        </div>
+      </div>
+      <p class="lead" style="margin-bottom:2.5rem">A full construction set for a three‑storey side‑by‑side duplex with basement garages: site plan, floor plans for every level, four elevations, roof plan, electrical plans, and a complete structural package of foundation, floor and roof framing, notes and details. Click any sheet to open it full‑screen and zoom in.</p>
+    </div>
 
     <div class="viewer reveal">
       <button type="button" class="stage" id="stage" aria-label="Open sheet full-screen">
@@ -639,19 +667,35 @@
         <span class="stage-zoom"><svg viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14M7 5v4M5 7h4"/></svg> View full‑screen</span>
       </button>
       <div class="thumbs" id="thumbs">
-          <button type="button" class="thumb active" data-i="0"><img src="plans/A-01-t.jpg" alt="A-01 Site Plan & Location Map" loading="lazy"><span><b>A-01</b>Site Plan &amp; Location Map</span></button>
-          <button type="button" class="thumb" data-i="1"><img src="plans/A-02-t.jpg" alt="A-02 Foundation Plan & Details" loading="lazy"><span><b>A-02</b>Foundation Plan &amp; Details</span></button>
-          <button type="button" class="thumb" data-i="2"><img src="plans/A-03-t.jpg" alt="A-03 Ground Floor Plan" loading="lazy"><span><b>A-03</b>Ground Floor Plan</span></button>
-          <button type="button" class="thumb" data-i="3"><img src="plans/A-04-t.jpg" alt="A-04 First Floor Plan" loading="lazy"><span><b>A-04</b>First Floor Plan</span></button>
-          <button type="button" class="thumb" data-i="4"><img src="plans/A-05-t.jpg" alt="A-05 Front & Rear Elevations" loading="lazy"><span><b>A-05</b>Front &amp; Rear Elevations</span></button>
-          <button type="button" class="thumb" data-i="5"><img src="plans/A-06-t.jpg" alt="A-06 Right & Left Elevations" loading="lazy"><span><b>A-06</b>Right &amp; Left Elevations</span></button>
-          <button type="button" class="thumb" data-i="6"><img src="plans/A-07-t.jpg" alt="A-07 Vertical Cross-Sections" loading="lazy"><span><b>A-07</b>Vertical Cross-Sections</span></button>
-          <button type="button" class="thumb" data-i="7"><img src="plans/A-08-t.jpg" alt="A-08 Electrical Plans" loading="lazy"><span><b>A-08</b>Electrical Plans</span></button>
-          <button type="button" class="thumb" data-i="8"><img src="plans/A-09-t.jpg" alt="A-09 Drainage Plans" loading="lazy"><span><b>A-09</b>Drainage Plans</span></button>
-          <button type="button" class="thumb" data-i="9"><img src="plans/A-10-t.jpg" alt="A-10 Structural Reinforcement Plan" loading="lazy"><span><b>A-10</b>Structural Reinforcement Plan</span></button>
-          <button type="button" class="thumb" data-i="10"><img src="plans/A-11-t.jpg" alt="A-11 Roof Framing Plan" loading="lazy"><span><b>A-11</b>Roof Framing Plan</span></button>
-          <button type="button" class="thumb" data-i="11"><img src="plans/A-12-t.jpg" alt="A-12 Roof & Slab Details" loading="lazy"><span><b>A-12</b>Roof &amp; Slab Details</span></button>
-          <button type="button" class="thumb" data-i="12"><img src="plans/A-13-t.jpg" alt="A-13 Drainage & Joinery Details" loading="lazy"><span><b>A-13</b>Drainage &amp; Joinery Details</span></button>
+          <button type="button" class="thumb active" data-i="0" data-src="plans/A-01.jpg"><img src="plans/A-01-t.jpg" alt="A-01 Site Plan & Location Map" loading="lazy"><span><b>A-01</b>Site Plan &amp; Location Map</span></button>
+          <button type="button" class="thumb" data-i="1" data-src="plans/A-02.jpg"><img src="plans/A-02-t.jpg" alt="A-02 Foundation Plan & Details" loading="lazy"><span><b>A-02</b>Foundation Plan &amp; Details</span></button>
+          <button type="button" class="thumb" data-i="2" data-src="plans/A-03.jpg"><img src="plans/A-03-t.jpg" alt="A-03 Ground Floor Plan" loading="lazy"><span><b>A-03</b>Ground Floor Plan</span></button>
+          <button type="button" class="thumb" data-i="3" data-src="plans/A-04.jpg"><img src="plans/A-04-t.jpg" alt="A-04 First Floor Plan" loading="lazy"><span><b>A-04</b>First Floor Plan</span></button>
+          <button type="button" class="thumb" data-i="4" data-src="plans/A-05.jpg"><img src="plans/A-05-t.jpg" alt="A-05 Front & Rear Elevations" loading="lazy"><span><b>A-05</b>Front &amp; Rear Elevations</span></button>
+          <button type="button" class="thumb" data-i="5" data-src="plans/A-06.jpg"><img src="plans/A-06-t.jpg" alt="A-06 Right & Left Elevations" loading="lazy"><span><b>A-06</b>Right &amp; Left Elevations</span></button>
+          <button type="button" class="thumb" data-i="6" data-src="plans/A-07.jpg"><img src="plans/A-07-t.jpg" alt="A-07 Vertical Cross-Sections" loading="lazy"><span><b>A-07</b>Vertical Cross-Sections</span></button>
+          <button type="button" class="thumb" data-i="7" data-src="plans/A-08.jpg"><img src="plans/A-08-t.jpg" alt="A-08 Electrical Plans" loading="lazy"><span><b>A-08</b>Electrical Plans</span></button>
+          <button type="button" class="thumb" data-i="8" data-src="plans/A-09.jpg"><img src="plans/A-09-t.jpg" alt="A-09 Drainage Plans" loading="lazy"><span><b>A-09</b>Drainage Plans</span></button>
+          <button type="button" class="thumb" data-i="9" data-src="plans/A-10.jpg"><img src="plans/A-10-t.jpg" alt="A-10 Structural Reinforcement Plan" loading="lazy"><span><b>A-10</b>Structural Reinforcement Plan</span></button>
+          <button type="button" class="thumb" data-i="10" data-src="plans/A-11.jpg"><img src="plans/A-11-t.jpg" alt="A-11 Roof Framing Plan" loading="lazy"><span><b>A-11</b>Roof Framing Plan</span></button>
+          <button type="button" class="thumb" data-i="11" data-src="plans/A-12.jpg"><img src="plans/A-12-t.jpg" alt="A-12 Roof & Slab Details" loading="lazy"><span><b>A-12</b>Roof &amp; Slab Details</span></button>
+          <button type="button" class="thumb" data-i="12" data-src="plans/A-13.jpg"><img src="plans/A-13-t.jpg" alt="A-13 Drainage & Joinery Details" loading="lazy"><span><b>A-13</b>Drainage &amp; Joinery Details</span></button>
+      </div>
+      <div class="thumbs" id="thumbs2" hidden>
+          <button type="button" class="thumb" data-i="0" data-src="plans2/A0-0.jpg"><img src="plans2/A0-0-t.jpg" alt="A0.0 Cover Sheet" loading="lazy"><span><b>A0.0</b>Cover Sheet</span></button>
+          <button type="button" class="thumb" data-i="1" data-src="plans2/A1-0.jpg"><img src="plans2/A1-0-t.jpg" alt="A1.0 Site Plan" loading="lazy"><span><b>A1.0</b>Site Plan</span></button>
+          <button type="button" class="thumb" data-i="2" data-src="plans2/A2-0.jpg"><img src="plans2/A2-0-t.jpg" alt="A2.0 Basement Floor Plan" loading="lazy"><span><b>A2.0</b>Basement Floor Plan</span></button>
+          <button type="button" class="thumb" data-i="3" data-src="plans2/A2-1.jpg"><img src="plans2/A2-1-t.jpg" alt="A2.1 Main & Upper Floor Plans" loading="lazy"><span><b>A2.1</b>Main &amp; Upper Floor Plans</span></button>
+          <button type="button" class="thumb" data-i="4" data-src="plans2/A3-0.jpg"><img src="plans2/A3-0-t.jpg" alt="A3.0 Front & Rear Elevations" loading="lazy"><span><b>A3.0</b>Front &amp; Rear Elevations</span></button>
+          <button type="button" class="thumb" data-i="5" data-src="plans2/A3-1.jpg"><img src="plans2/A3-1-t.jpg" alt="A3.1 Right & Left Elevations" loading="lazy"><span><b>A3.1</b>Right &amp; Left Elevations</span></button>
+          <button type="button" class="thumb" data-i="6" data-src="plans2/A4-0.jpg"><img src="plans2/A4-0-t.jpg" alt="A4.0 Roof Plan" loading="lazy"><span><b>A4.0</b>Roof Plan</span></button>
+          <button type="button" class="thumb" data-i="7" data-src="plans2/E1-0.jpg"><img src="plans2/E1-0-t.jpg" alt="E1.0 Basement Electrical Plan" loading="lazy"><span><b>E1.0</b>Basement Electrical Plan</span></button>
+          <button type="button" class="thumb" data-i="8" data-src="plans2/E1-1.jpg"><img src="plans2/E1-1-t.jpg" alt="E1.1 Main & Second Electrical Plans" loading="lazy"><span><b>E1.1</b>Main &amp; Second Electrical Plans</span></button>
+          <button type="button" class="thumb" data-i="9" data-src="plans2/S1-0.jpg"><img src="plans2/S1-0-t.jpg" alt="S1.0 Foundation Plan" loading="lazy"><span><b>S1.0</b>Foundation Plan</span></button>
+          <button type="button" class="thumb" data-i="10" data-src="plans2/S2-0.jpg"><img src="plans2/S2-0-t.jpg" alt="S2.0 Floor Framing Plans" loading="lazy"><span><b>S2.0</b>Floor Framing Plans</span></button>
+          <button type="button" class="thumb" data-i="11" data-src="plans2/S3-0.jpg"><img src="plans2/S3-0-t.jpg" alt="S3.0 Roof Framing Plan" loading="lazy"><span><b>S3.0</b>Roof Framing Plan</span></button>
+          <button type="button" class="thumb" data-i="12" data-src="plans2/S4-0.jpg"><img src="plans2/S4-0-t.jpg" alt="S4.0 Structural Notes & Details" loading="lazy"><span><b>S4.0</b>Structural Notes &amp; Details</span></button>
+          <button type="button" class="thumb" data-i="13" data-src="plans2/S4-1.jpg"><img src="plans2/S4-1-t.jpg" alt="S4.1 Structural Notes & Details II" loading="lazy"><span><b>S4.1</b>Structural Notes &amp; Details II</span></button>
       </div>
     </div>
   </div>
@@ -939,21 +983,30 @@
   vid.play && vid.play().catch(()=>{ sw('icoPause','icoPlay',true); });
 
 
-  // 2D plans viewer
-  const SHEETS = [...document.querySelectorAll('#thumbs .thumb')].map(b => ({code:b.querySelector('b').textContent, title:b.querySelector('span').textContent.replace(b.querySelector('b').textContent,'')}));
-  let cur = 0;
+  // 2D plans viewer (multiple projects)
+  const readSet = id => [...document.querySelectorAll('#' + id + ' .thumb')].map(b => ({el:b, src:b.dataset.src, code:b.querySelector('b').textContent, title:b.querySelector('span').textContent.replace(b.querySelector('b').textContent,'')}));
+  const SETS = {house: readSet('thumbs'), duplex: readSet('thumbs2')};
+  let SHEETS = SETS.house, cur = 0;
   const stageImg = document.getElementById('stageImg');
   const pick = i => {
     cur = (i + SHEETS.length) % SHEETS.length;
     const sh = SHEETS[cur];
     stageImg.style.opacity = .3;
-    const tmp = new Image(); tmp.onload = () => { stageImg.src = tmp.src; stageImg.style.opacity = 1; }; tmp.src = 'plans/' + sh.code + '.jpg';
+    const tmp = new Image(); tmp.onload = () => { stageImg.src = tmp.src; stageImg.style.opacity = 1; }; tmp.src = sh.src;
     stageImg.alt = 'Sheet ' + sh.code + ' ' + sh.title;
     document.getElementById('stageCode').textContent = sh.code;
     document.getElementById('stageTitle').textContent = sh.title;
-    document.querySelectorAll('#thumbs .thumb').forEach((b,k) => b.classList.toggle('active', k===cur));
+    SHEETS.forEach((x,k) => x.el.classList.toggle('active', k===cur));
   };
-  document.querySelectorAll('#thumbs .thumb').forEach((b,k) => b.addEventListener('click', () => pick(k)));
+  Object.values(SETS).forEach(set => set.forEach((x,k) => x.el.addEventListener('click', () => { SHEETS = set; pick(k); })));
+  document.querySelectorAll('.proj-tabs button').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.set;
+    document.querySelectorAll('.proj-tabs button').forEach(x => { x.classList.toggle('on', x===b); x.setAttribute('aria-selected', x===b); });
+    document.querySelectorAll('.proj-info').forEach(x => x.hidden = x.dataset.for !== id);
+    document.getElementById('thumbs').hidden = id !== 'house';
+    document.getElementById('thumbs2').hidden = id !== 'duplex';
+    SHEETS = SETS[id]; pick(0);
+  }));
 
   const lb = document.getElementById('lightbox'), canvas = document.getElementById('lbCanvas'), lbImg = document.getElementById('lbImg');
   let sc = 1, fit = 1, tx = 0, ty = 0;
@@ -970,7 +1023,7 @@
     const sh = SHEETS[cur];
     document.getElementById('lbCode').textContent = sh.code; document.getElementById('lbTitle').textContent = sh.title;
     lbImg.alt = 'Sheet ' + sh.code + ' ' + sh.title;
-    lbImg.onload = fitView; lbImg.src = 'plans/' + sh.code + '.jpg';
+    lbImg.onload = fitView; lbImg.src = sh.src;
     if (lbImg.complete && lbImg.naturalWidth) fitView();
   };
   const openLb = () => { lb.hidden = false; document.body.style.overflow = 'hidden'; loadLb(); };
