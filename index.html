@@ -221,11 +221,17 @@
   select option{background:var(--navy)}
   .form-actions{grid-column:1/-1;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-top:.4rem}
   .form-actions small{color:var(--muted);font-size:.82rem}
-  .brief{display:none;grid-column:1/-1;margin-top:.6rem;border:1px solid var(--accent);border-radius:12px;background:rgba(0,0,0,.25);padding:1.2rem}
+  .brief{display:none;grid-column:1/-1;margin-top:.6rem;border:1px solid var(--accent);border-radius:12px;background:rgba(0,0,0,.25);padding:1.2rem;min-width:0}
   .brief.show{display:block}
-  .brief pre{white-space:pre-wrap;font-family:var(--mono);font-size:.8rem;color:var(--ink);line-height:1.7;max-height:260px;overflow:auto}
-  .brief-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;gap:1rem;flex-wrap:wrap}
+  .brief pre{white-space:pre-wrap;overflow-wrap:anywhere;font-family:var(--mono);font-size:.8rem;color:var(--ink);line-height:1.7;margin:0}
+  .brief-head{display:flex;flex-direction:column;align-items:stretch;gap:.85rem;margin-bottom:1rem}
   .brief-head strong{color:var(--accent);font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+  .brief-actions{display:flex;gap:.5rem;flex-wrap:wrap}
+  .brief-actions .btn{flex:1 1 140px;justify-content:center;padding:.55rem 1rem;font-size:.85rem}
+  .btn-wa{background:#25D366;color:#062e16}
+  .btn-wa:hover{background:#1ebe5d}
+  .brief-note{color:var(--muted);font-size:.85rem;margin-top:.9rem;overflow-wrap:anywhere}
+  .brief-note a{color:var(--ink);text-decoration:underline}
   .err{color:#ff9b8a;font-size:.85rem}
 
 
@@ -893,9 +899,9 @@
           <small id="formMsg">Includes the checklist items you ticked above. See our <a href="#terms" style="color:var(--accent);text-decoration:underline">Terms &amp; Conditions</a>.</small>
         </div>
         <div class="brief" id="brief" aria-live="polite">
-          <div class="brief-head"><strong>Your Project Brief</strong><div style="display:flex;gap:.5rem;flex-wrap:wrap"><a class="btn btn-primary" id="mailBtn" href="mailto:info@claytechconstruction.com" style="padding:.5rem 1rem;font-size:.85rem">Email this brief</a><button type="button" class="btn btn-ghost" id="copyBtn" style="padding:.5rem 1rem;font-size:.85rem">Copy brief</button></div></div>
+          <div class="brief-head"><strong>Your Project Brief</strong><div class="brief-actions"><a class="btn btn-primary" id="mailBtn" href="mailto:info@claytechconstruction.com">Email this brief</a><a class="btn btn-wa" id="waBtn" href="https://wa.me/15702428580" target="_blank" rel="noopener">WhatsApp</a><button type="button" class="btn btn-ghost" id="copyBtn">Copy brief</button></div></div>
           <pre id="briefText"></pre>
-          <p style="color:var(--muted);font-size:.85rem;margin-top:.8rem">Send this brief to <a href="mailto:info@claytechconstruction.com" style="color:var(--ink);text-decoration:underline">info@claytechconstruction.com</a> or message <a href="https://wa.me/15702428580" target="_blank" rel="noopener" style="color:var(--ink);text-decoration:underline">(570) 242-8580</a> on WhatsApp to book your consultation. If the email button doesn't open your mail app, copy the brief and paste it into an email.</p>
+          <p class="brief-note">Send this brief to <a href="mailto:info@claytechconstruction.com">info@claytechconstruction.com</a> or message <a href="https://wa.me/15702428580" target="_blank" rel="noopener">(570) 242-8580</a> on WhatsApp. If the email button doesn't open your mail app, use WhatsApp or copy the brief.</p>
         </div>
       </form>
     </div>
@@ -1184,6 +1190,7 @@ ${missing.length ? missing.map(h => '  ○ ' + h).join('\n') : '  Nothing — al
 Request: initial consultation`;
     document.getElementById('briefText').textContent = text;
     document.getElementById('mailBtn').href = 'mailto:info@claytechconstruction.com?subject=' + encodeURIComponent('Project Brief: ' + v('name')) + '&body=' + encodeURIComponent(text);
+    document.getElementById('waBtn').href = 'https://wa.me/15702428580?text=' + encodeURIComponent(text);
     const b = document.getElementById('brief'); b.classList.add('show');
     b.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
